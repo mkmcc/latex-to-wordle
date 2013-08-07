@@ -1,0 +1,7 @@
+this file parses a list of files and produces output readable by
+wordle (http://www.wordle.net/).  it has rudimentary support for
+removing latex commands and for combining similar words
+(e.g. "simulation" and "simulations").
+
+example output:
+[[example.png]]
