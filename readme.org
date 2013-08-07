@@ -1,7 +1,11 @@
 this file parses a list of files and produces output readable by
 wordle (http://www.wordle.net/).  it has rudimentary support for
 removing latex commands and for combining similar words
-(e.g. "simulation" and "simulations").
+(e.g. "simulation" and "simulations").  it also colorizes words using
+the [[http://ethanschoonover.com/solarized][solarized]] palette.
+
+this is pretty rough code; it's not meant to be a finished package.
+rather, you should hack it to meet your needs
 
 example output:
 [[example.png]]
