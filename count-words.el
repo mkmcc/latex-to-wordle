@@ -5,7 +5,6 @@
 (defvar my-files
   '("~/Documents/Papers/BuoyancySaturation/buoyancy_saturation.tex"
     "~/Documents/Papers/ThermalInstability/thermal_instability.tex"
-    ;; "/strada1/mkmcc/OuterParts/outer-parts.tex"
     "~/Documents/Papers/OuterParts/outer-parts.tex"
     "~/Documents/Proposals/Chandra2011/Proposal.tex"
     "~/Documents/filament-proposal/proposal/proposal.tex")
@@ -28,7 +27,7 @@
     "way" "even" "new" "want" "because" "any" "these"
     "give" "day" "most" "us" "show" "shows" "are" "has" "much"
     "very" "more" "where" "thus" "may" "since" "though" "however"
-    "therefore")
+    "therefore" "does")
   "Common words to ignore.")
 
 (defvar ignore-latex
@@ -53,10 +52,9 @@
 
 
 ;;; set up a hash table to store data
-
-; `maphash' doesn't return a list of the results; i.e. it isn't a
-; real map.  annoying!
 (defun real-maphash (func table)
+  "`maphash' doesn't return a list of the results; i.e. it isn't
+a real map.  annoying!"
   (let ((result '()))
     (maphash
      (lambda (key val)
@@ -84,8 +82,8 @@
 
 ;;; combine duplicate words
 (defun remove-dups (lst)
-  "take a list of identical words (e.g. \"simulation\"
-  \"simulations\" \"simulating\") and combine into first element"
+  "take a list of identical words [e.g. (\"simulation\"
+\"simulations\" \"simulating\")] and combine into first element"
   (let ((base-word (car lst)))
     (dolist (word (cdr lst))
       (let ((num1 (gethash base-word word-hash 0))
@@ -160,9 +158,14 @@
     ("wave" "wavelength")
     ("weak" "weakens"))
   "Words which should be considered the same.  Note that simple
-  suffixes are handles automatically below.  The rules in this
-  list come last, so can be used to decide which word 'wins'.")
+suffixes are handles automatically below.  The rules in this list
+come last, so can be used to decide which word 'wins'.")
 
+;; find words which differ only by simple suffixes and add them to the
+;; stem-dups list.  add to the beginning so as not to over-write
+;; things in that list.
+;; FIXME: this assumes the un-suffixed word exists in the data.  So
+;; some things won't be combined.
 (let ((word-list (real-maphash (lambda (key val) key) word-hash))
       (suffixes '("s" "n" "r" "d"
                   "ed" "es" "er" "est" "st"
