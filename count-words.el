@@ -1,5 +1,14 @@
+#! /bin/sh
+":"; exec emacs --no-site-file --script "$0" -- "$@" # -*-emacs-lisp-*-
+;;; count-words.el --- prepares output for wordle
+
+;;; load s and dash
+(setq package-load-list '((s t) (dash t)))
+(package-initialize)
 (require 'dash)
 (require 's)
+
+
 
 ;;; files to operate on
 (defvar my-files
